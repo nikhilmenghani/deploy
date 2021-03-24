@@ -9,6 +9,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  USER_NAME: ${{ secrets.USER_NAME }}
+  EMAIL: ${{ secrets.EMAIL }}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -21,6 +26,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
 
+      - name: Setup SSH Keys and known_hosts 
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Initialization and Fetching the Source Code
+        run: |
+            git config --global user.name "$USER_NAME"
+            git config --global user.email "$EMAIL"
+      
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
