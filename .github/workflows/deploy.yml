@@ -13,6 +13,7 @@ env:
   ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
   USER_NAME: ${{ secrets.USER_NAME }}
   EMAIL: ${{ secrets.EMAIL }}
+  SF_PWD: ${{ secrets.SF_PWD }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,24 +31,41 @@ jobs:
         uses: webfactory/ssh-agent@v0.4.1
         with:
             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      
+      - name: Environment Details and clean up
+        run: |
+            rm -rf $REPOSITORY 10 11 Build Releases release nikgapps.github.io
       - name: Initialization and Fetching the Source Code
         run: |
             git config --global user.name "$USER_NAME"
             git config --global user.email "$EMAIL"
-      
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: |
-            cd ..
             git clone git@github.com:nikhilmenghani/build.git
+
+      - name: Installing Requirements
+        run: |
             python3 -m pip install wheel setuptools testresources
             cd build
             pip3 install -r requirements.txt
-            python3 main.py
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+            cd ..
+      - name: Get Website and Release Source
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+            git clone --depth=1 git@github.com:nikgapps/nikgapps.github.io.git
+            git clone git@github.com:nikgapps/release.git
+      - name: Fetching Android Q source
+        run: |
+            git config --global http.postBuffer 157286400
+            git clone --depth=1 https://gitlab.com/nikgapps/10.git
+      - name: Building Android Q Gapps
+        run: |
+            cd build
+            python3 main.py 10 core
+            cd ..
+      - name: Fetching Android R source
+        run: |
+            git config --global http.postBuffer 157286400
+            git clone --depth=1 https://gitlab.com/nikgapps/11.git
+      - name: Building Android R Gapps
+        run: |
+            cd build
+            python3 main.py 11 core
+            
+            
