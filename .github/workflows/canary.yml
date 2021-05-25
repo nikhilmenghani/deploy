@@ -1,0 +1,64 @@
+name: NikGapps-Canary-Deployment
+
+on:
+  workflow_dispatch:
+
+env:
+  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  USER_NAME: ${{ secrets.USER_NAME }}
+  EMAIL: ${{ secrets.EMAIL }}
+  SF_PWD: ${{ secrets.SF_PWD }}
+  RELEASE_TYPE: 'canary'
+  ENVIRONMENT_TYPE: ${{ secrets.ENVIRONMENT_TYPE }}
+  PACKAGE_LIST_10: ${{ secrets.PACKAGE_LIST_10 }}
+  PACKAGE_LIST_11: ${{ secrets.PACKAGE_LIST_11 }}
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+       - name: Checkout
+         uses: actions/checkout@main
+
+       - name: Setup SSH Keys and known_hosts 
+         uses: webfactory/ssh-agent@v0.4.1
+         with:
+             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+       - name: Environment Details and clean up
+         run: |
+           rm -rf build 10 11 Build Releases canary-release release nikgapps.github.io TempPackages
+       - name: Initialization and Fetching the Source Code
+         run: |
+            git config --global user.name "$USER_NAME"
+            git config --global user.email "$EMAIL"
+            got clone git@github.com:nikhilmenghani/build.git
+            git clone git@github.com:nikgapps/config.git
+       - name: Installing Requirements
+         run: |
+            python3 -m pip install wheel setuptools testresources
+            cd bulld
+            pip3 install -r requirements.txt
+            cd ..
+       - name: Get Website and Release Source
+         run: |
+           git clone --depth=1 git@github.com:nikgapps/nikgapps.github.io.git
+           git clone git@github.com:nikgapps/canary-release.git
+       - name: Fetching Android Q source
+         run: |
+             git config --global http.postBuffer 157286400
+             git clone --depth=1 --branch canary https://gitlab.com/nikgapps/10.git
+       - name: Fetching Android R source
+         run: |
+              git config --global http.postBuffer 157286400
+              git clone --depth=1 --branch canary https://gitlab.com/nikgapps/11.git
+       - name: Building Android Q Gapps
+         run: |
+            cd build
+            python3 main.py 10 $PACKAGE_LIST_10
+            cd ..
+       - name: Building Android R Gapps
+         run: |
+            cd build
+            python3 main.py 11 $PACKAGE_LIST_11
+            cd ..
