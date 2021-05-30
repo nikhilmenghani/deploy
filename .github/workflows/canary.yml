@@ -14,6 +14,9 @@ env:
   ENVIRONMENT_TYPE: ${{ secrets.ENVIRONMENT_TYPE }}
   PACKAGE_LIST_10: ${{ secrets.PACKAGE_LIST_10 }}
   PACKAGE_LIST_11: ${{ secrets.PACKAGE_LIST_11 }}
+  GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+  TO_MAILS: ${{ secrets.TO_MAILS }}
+  
 
 jobs:
   build:
