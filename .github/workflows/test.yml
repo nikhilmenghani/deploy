@@ -2,7 +2,9 @@ name: NikGapps-Canary-Deployment
 
 on:
   workflow_dispatch:
-  [push]:
+  push:
+    branches:
+      - main
 
 env:
   ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
