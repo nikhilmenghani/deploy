@@ -1,1 +1,39 @@
+name: NikGapps-Canary-Deployment
 
+on:
+  workflow_dispatch:
+  [push]:
+
+env:
+  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  USER_NAME: ${{ secrets.USER_NAME }}
+  EMAIL: ${{ secrets.EMAIL }}
+  SF_PWD: ${{ secrets.SF_PWD }}
+  RELEASE_TYPE: 'canary'
+  ENVIRONMENT_TYPE: ${{ secrets.ENVIRONMENT_TYPE }}
+  PACKAGE_LIST_10: ${{ secrets.PACKAGE_LIST_10 }}
+  PACKAGE_LIST_11: ${{ secrets.PACKAGE_LIST_11 }}
+  GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+  TO_MAILS: ${{ secrets.TO_MAILS }}
+  
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+       - name: Checkout
+         uses: actions/checkout@main
+
+       - name: Setup SSH Keys and known_hosts 
+         uses: webfactory/ssh-agent@v0.4.1
+         with:
+             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+       - name: Environment Details and clean up
+         run: |
+           rm -rf build 10 11 Build Releases canary-release release nikgapps.github.io TempPackages
+       - name: Installing Requirements
+         run: |
+            python3 -m pip install wheel setuptools testresources
+            brew install apktool
+            apktool
