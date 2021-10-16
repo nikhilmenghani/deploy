@@ -14,6 +14,7 @@ env:
   ENVIRONMENT_TYPE: ${{ secrets.ENVIRONMENT_TYPE }}
   PACKAGE_LIST_10: ${{ secrets.PACKAGE_LIST_10 }}
   PACKAGE_LIST_11: ${{ secrets.PACKAGE_LIST_11 }}
+  PACKAGE_LIST_12: ${{ secrets.PACKAGE_LIST_12 }}
   GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
   TO_MAILS: ${{ secrets.TO_MAILS }}
   
@@ -65,4 +66,13 @@ jobs:
          run: |
             cd build
             python3 main.py 11 $PACKAGE_LIST_11
+            cd ..
+       - name: Fetching Android S source
+         run: |
+              git config --global http.postBuffer 157286400
+              git clone --depth=1 --branch canary https://gitlab.com/nikgapps/11.git
+       - name: Building Android S Gapps
+         run: |
+            cd build
+            python3 main.py 12 $PACKAGE_LIST_12
             cd ..
