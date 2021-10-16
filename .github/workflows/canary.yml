@@ -70,7 +70,7 @@ jobs:
        - name: Fetching Android S source
          run: |
               git config --global http.postBuffer 157286400
-              git clone --depth=1 --branch canary https://gitlab.com/nikgapps/11.git
+              git clone --depth=1 --branch canary https://gitlab.com/nikgapps/12.git
        - name: Building Android S Gapps
          run: |
             cd build
