@@ -39,3 +39,5 @@ jobs:
             python3 -m pip install wheel setuptools testresources
             brew install apktool
             apktool
+            brew install zipalign
+            zipalign
