@@ -76,3 +76,13 @@ jobs:
             cd build
             python3 main.py 12 $PACKAGE_LIST_12
             cd ..
+
+       - name: Fetching Android SL source
+         run: |
+              git config --global http.postBuffer 157286400
+              git clone --depth=1 --branch canary https://gitlab.com/nikgapps/12.1.git
+       - name: Building Android SL Gapps
+         run: |
+            cd build
+            python3 main.py 12.1 $PACKAGE_LIST_12
+            cd ..
