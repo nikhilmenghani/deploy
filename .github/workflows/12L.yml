@@ -1,4 +1,4 @@
-name: NikGapps-Canary-Deployment
+name: NikGapps-12L
 
 on:
   workflow_dispatch:
