@@ -40,9 +40,9 @@ jobs:
           ls
           rm -rf build 10 11 Build Releases canary-release release nikgapps.github.io TempPackages
           ls
-       - name: Installing Requirements
-         run: |
-          apktool
-          zipalign
-          ls
+      #  - name: Installing Requirements
+      #    run: |
+      #     apktool
+      #     zipalign
+      #     ls
 
