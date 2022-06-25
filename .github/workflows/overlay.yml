@@ -36,11 +36,19 @@ jobs:
           neofetch
           df -H
           ls
-          ls
+       - name: Initialization and Fetching the Source Code
+         run: |
+            git config --global user.name "$USER_NAME"
+            git config --global user.email "$EMAIL"
+            git clone git@github.com:nikhilmenghani/build.git
        - name: Installing Requirements
          run: |
-          java -jar apktool_2.6.1.jar b GoogleDialerOverlay
-          ls
-          zipalign -p -f -v 4 GoogleDialerOverlay/dist/GoogleDialerOverlay.apk outfile.apk
-          ls
-
+            python3 -m pip install wheel setuptools testresources
+            cd build
+            pip3 install -r requirements.txt
+            cd ..
+       - name: Building Overlays
+         run: |
+            cd build
+            python3 overlay_control.py
+            cd ..
