@@ -39,7 +39,7 @@ jobs:
           ls
        - name: Installing Requirements
          run: |
-          ./install-apktool.sh
+          java -jar apktool_2.6.1.jar
           apktool -version
           ls
 
