@@ -34,7 +34,7 @@ jobs:
          run: |
           sudo apt-get install neofetch apktool zipalign
           neofetch
-          df
+          df -H
           ls
           rm -rf $REPOSITORY 10 11 Build Releases
           ls
@@ -42,5 +42,7 @@ jobs:
           ls
        - name: Installing Requirements
          run: |
-            apktool
-            zipalign
+          apktool
+          zipalign
+          ls
+
