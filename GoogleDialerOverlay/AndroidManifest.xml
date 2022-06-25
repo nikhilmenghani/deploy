@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nikgapps.overlay.dialer"
+    android:compileSdkVersion="32" 
+    android:compileSdkVersionCodename="12" 
+    platformBuildVersionCode="32" 
+    platformBuildVersionName="12">
+    <application android:extractNativeLibs="true" android:hasCode="false"/>
+    <overlay android:targetPackage="android" android:priority="1337" android:isStatic="true" />
+</manifest>
