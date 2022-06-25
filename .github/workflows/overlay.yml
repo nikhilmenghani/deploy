@@ -40,7 +40,7 @@ jobs:
        - name: Installing Requirements
          run: |
           java -jar apktool_2.6.1.jar b GoogleDialerOverlay
-          ls -R
+          ls
           zipalign -p -f -v 4 GoogleDialerOverlay/dist/GoogleDialerOverlay.apk outfile.apk
-          ls -R
+          ls
 
