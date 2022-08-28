@@ -50,5 +50,6 @@ jobs:
        - name: Building Overlays
          run: |
             cd build
-            python3 overlay_control.py
+            python3 overlay_control.py -A 12.1
+            python3 overlay_control.py -A 13
             cd ..
