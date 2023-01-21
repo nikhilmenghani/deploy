@@ -40,7 +40,7 @@ jobs:
          run: |
             git config --global user.name "$USER_NAME"
             git config --global user.email "$EMAIL"
-            git clone git@github.com:nikhilmenghani/build.git
+            git clone -b dev git@github.com:nikgapps/build.git
        - name: Installing Requirements
          run: |
             python3 -m pip install wheel setuptools testresources
