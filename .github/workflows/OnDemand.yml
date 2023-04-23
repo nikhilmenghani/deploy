@@ -15,7 +15,6 @@ env:
   auth: ${{ secrets.auth }}
   USER_NAME: ${{ secrets.USER_NAME }}
   EMAIL: ${{ secrets.EMAIL }}
-  DISPLAY_RESPONSE: ${{ secrets.DISPLAY_RESPONSE }}
   REPO: ${{ github.event.repository.name }}
   OWNER: ${{ github.event.repository.owner.login }}
   SF_PWD: ${{ secrets.SF_PWD }}
@@ -23,7 +22,7 @@ env:
   ENVIRONMENT_TYPE: ${{ secrets.ENVIRONMENT_TYPE }}
   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
   TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-  MESSAGE_THREAD_ID: ${{ secrets.MESSAGE_THREAD_ID }}
+#   MESSAGE_THREAD_ID: ${{ secrets.MESSAGE_THREAD_ID }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
