@@ -7,9 +7,9 @@ on:
         - main
   
 env:
-ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-USER_NAME: ${{ secrets.USER_NAME }}
-EMAIL: ${{ secrets.EMAIL }}
+    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    USER_NAME: ${{ secrets.USER_NAME }}
+    EMAIL: ${{ secrets.EMAIL }}
 
 jobs:
     build:
