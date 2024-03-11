@@ -32,7 +32,7 @@ jobs:
            run: |
               git config --global user.name "$USER_NAME"
               git config --global user.email "$EMAIL"
-              git clone git@github.com:AndroidDumps/dumpyara.git
+              git clone git@github.com:nikhilmenghani/dumpyara.git
         
          - name: Run Test
            run: |
@@ -48,4 +48,5 @@ jobs:
            run: |
               cd dumpyara
               bash dumpyara.sh https://dl.google.com/developers/android/udc/images/factory/husky_beta-ap21.240216.010-factory-e7ae4f3d.zip
+              ls -R
               cd ..
