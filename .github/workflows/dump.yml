@@ -39,4 +39,14 @@ jobs:
            run: |
               cd dumpyara
               bash setup.sh
+              cd ..
+
+         - name: List directories
+           run: |
               ls -R
+
+         - name: Run Test
+           run: |
+              cd dumpyara
+              bash dumpyara.sh https://dl.google.com/developers/android/udc/images/factory/husky_beta-ap21.240216.010-factory-e7ae4f3d.zip
+              cd ..
